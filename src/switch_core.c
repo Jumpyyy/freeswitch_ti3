@@ -2080,7 +2080,6 @@ static void switch_load_core_config(const char *file)
 	char localRtpEndPort[512] = {0};
 	switch_bool_t hasLocalStartPort = SWITCH_FALSE;
 	switch_bool_t hasLocalEndPort = SWITCH_FALSE;
-	switch_port_t localport;
 	sprintf(localRtpStartPort, "%s_rtp-start-port", localip);
 	sprintf(localRtpEndPort, "%s_rtp-end-port", localip);
 
@@ -2324,14 +2323,14 @@ static void switch_load_core_config(const char *file)
 						runtime.timer_affinity = atoi(val);
 					}
 				} else if (!strcasecmp(var, "rtp-start-port") && !zstr(val) &&hasLocalStartPort == SWITCH_FALSE) {
-					localport = switch_rtp_set_start_port((switch_port_t) atoi(val));
+					switch_rtp_set_start_port((switch_port_t) atoi(val));
 				} else if (!strcasecmp(var, "rtp-end-port") && !zstr(val) && hasLocalEndPort == SWITCH_FALSE) {
-					localport = switch_rtp_set_end_port((switch_port_t) atoi(val));
+					 switch_rtp_set_end_port((switch_port_t) atoi(val));
 				} else if (!strcasecmp(var, localRtpStartPort) && !zstr(val)) {
-					localport = switch_rtp_set_start_port((switch_port_t) atoi(val));
+					switch_rtp_set_start_port((switch_port_t) atoi(val));
 					hasLocalStartPort = SWITCH_TRUE;
 				} else if (!strcasecmp(var, localRtpEndPort) && !zstr(val)) {
-					localport = switch_rtp_set_end_port((switch_port_t) atoi(val));
+					switch_rtp_set_end_port((switch_port_t) atoi(val));
 					hasLocalEndPort = SWITCH_TRUE;
 				} 
 				else if (!strcasecmp(var, "rtp-port-usage-robustness") && switch_true(val)) {
