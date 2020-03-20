@@ -4372,6 +4372,16 @@ switch_status_t config_sofia(sofia_config_t reload, char *profile_name)
 	int profile_found = 0;
 	switch_event_t *params = NULL;
 	sofia_profile_t *profile_already_started = NULL;
+	char *localip = switch_core_get_variable_dup("local_ip_v4");
+	char localSipPort[512] = {0};
+	char localWsPort[512] = {0};
+	char localWssPort[512] = {0};
+	switch_bool_t hasLocalSipPort = SWITCH_FALSE;
+	switch_bool_t hasLocalWsPort = SWITCH_FALSE;
+	switch_bool_t hasLocalWssPort = SWITCH_FALSE;
+	sprintf(localSipPort, "%s_sip-port", localip);
+	sprintf(localWsPort, "%s_ws-binding", localip);
+    sprintf(localWssPort, "%s_wss-binding", localip);
 
 	if (!zstr(profile_name) && (profile = sofia_glue_find_profile(profile_name))) {
 		if (reload == SOFIA_CONFIG_RESCAN) {
@@ -4588,6 +4598,7 @@ switch_status_t config_sofia(sofia_config_t reload, char *profile_name)
 						profile->domain_name = switch_core_strdup(profile->pool, xprofiledomain);
 					}
 				}
+
 
 				for (param = switch_xml_child(settings, "param"); param; param = param->next) {
 					char *var = (char *) switch_xml_attr_soft(param, "name");
@@ -5007,14 +5018,24 @@ switch_status_t config_sofia(sofia_config_t reload, char *profile_name)
 						profile->te = (switch_payload_t) atoi(val);
 					} else if (!strcasecmp(var, "cng-pt") && !sofia_test_media_flag(profile, SCMF_SUPPRESS_CNG) && !zstr(val)) {
 						profile->cng_pt = (switch_payload_t) atoi(val);
-					} else if (!strcasecmp(var, "sip-port") && !zstr(val)) {
+					} else if (!strcasecmp(var, "sip-port") && !zstr(val) &&hasLocalSipPort == SWITCH_FALSE) {
 						if (!strcasecmp(val, "auto")) {
 							sofia_set_pflag(profile, PFLAG_AUTO_ASSIGN_PORT);
 						} else {
 							profile->sip_port = (switch_port_t) atoi(val);
 							if (!profile->extsipport) profile->extsipport = profile->sip_port;
 						}
-					} else if (!strcasecmp(var, "vad") && !zstr(val)) {
+					}else if (!strcasecmp(var, localSipPort) && !zstr(val)) {
+						if (!strcasecmp(val, "auto")) {
+							sofia_set_pflag(profile, PFLAG_AUTO_ASSIGN_PORT);
+						} else {							
+							profile->sip_port = (switch_port_t) atoi(val);
+							profile->extsipport = profile->sip_port;
+							hasLocalSipPort = SWITCH_TRUE;
+
+						}
+					}
+					else if (!strcasecmp(var, "vad") && !zstr(val)) {
 						if (!strcasecmp(val, "in")) {
 							profile->vflags |= VAD_IN;
 						} else if (!strcasecmp(val, "out")) {
@@ -5668,7 +5689,7 @@ switch_status_t config_sofia(sofia_config_t reload, char *profile_name)
 											  SWITCH_DEFAULT_DTMF_DURATION);
 						}
 
-					} else if (!strcasecmp(var, "ws-binding") && !zstr(val)) {
+					} else if (!strcasecmp(var, "ws-binding") && !zstr(val) && hasLocalWsPort == SWITCH_FALSE) {
 						int tmp;
 						char *p;
 
@@ -5681,7 +5702,23 @@ switch_status_t config_sofia(sofia_config_t reload, char *profile_name)
 							}
 						}
 
-					} else if (!strcasecmp(var, "wss-binding") && !zstr(val)) {
+					} 
+					else if (!strcasecmp(var, localWsPort) && !zstr(val)) {
+						int tmp;
+						char *p;
+
+						profile->ws_ip = switch_core_strdup(profile->pool, val);
+						if ((p = strrchr(profile->ws_ip, ':'))) {
+							*p++ = '\0';
+
+							if ((tmp = atol(p)) && tmp > 0) {
+								profile->ws_port = (switch_port_t) tmp;
+								hasLocalWsPort = SWITCH_TRUE;
+							}
+						}
+
+					}					
+					else if (!strcasecmp(var, "wss-binding") && !zstr(val) &&hasLocalWssPort == SWITCH_FALSE) {
 						int tmp;
 						char *p;
 
@@ -5697,7 +5734,26 @@ switch_status_t config_sofia(sofia_config_t reload, char *profile_name)
 						/*
 						 * handle TLS params #1
 						 */
-					} else if (!strcasecmp(var, "tls")) {
+					}
+					else if (!strcasecmp(var, localWssPort) && !zstr(val)) {
+						int tmp;
+						char *p;
+
+						profile->wss_ip = switch_core_strdup(profile->pool, val);
+						if ((p = strrchr(profile->wss_ip, ':'))) {
+							*p++ = '\0';
+
+							if ((tmp = atol(p)) && tmp > 0) {
+								profile->wss_port = (switch_port_t) tmp;
+								hasLocalWssPort = SWITCH_TRUE;
+							}
+						}
+
+						/*
+						 * handle TLS params #1
+						 */
+					}
+					 else if (!strcasecmp(var, "tls")) {
 						if (switch_true(val)) {
 							sofia_set_pflag(profile, PFLAG_TLS);
 							if (profile->tls_bind_params) {
