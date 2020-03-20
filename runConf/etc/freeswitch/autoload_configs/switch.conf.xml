@@ -147,8 +147,10 @@
     <!-- NEEDS DOCUMENTATION -->
 
     <!-- RTP port range -->
-      <param name="172.16.117.211_rtp-start-port" value="11111"/> 
-    <param name="172.16.117.211_rtp-end-port" value="11250"/> 
+    <param name="172.16.111.86_rtp-start-port" value="10001"/> 
+    <param name="172.16.111.86_rtp-end-port" value="10050"/> 
+    <param name="172.16.111.85_rtp-start-port" value="10201"/> 
+    <param name="172.16.111.85_rtp-end-port" value="10250"/> 
     <param name="rtp-start-port" value="10201"/> 
     <param name="rtp-end-port" value="10250"/> 
 
