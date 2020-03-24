@@ -6,4 +6,4 @@ export LD_LIBRARY_PATH=$runPath/lib:/usr/local/lib:$runPath/lib/freeswitch/mod:$
 
 
 #$runPath/bin/freeswitch  -base $runPath -conf $runPath/etc/freeswitch -log $runPath/var/log -db $runPath/var/lib/freeswitch/db -mod $runPath/lib/freeswitch/mod
-$runPath/bin/freeswitch -nonat -base $runPath -conf $runPath/etc/freeswitch -log $runPath/var/log -db $runPath/var/lib/freeswitch/db -mod $runPath/lib/freeswitch/mod -recordings $runPath/recordings >/dev/null
+$runPath/bin/freeswitch -nonat -base $runPath -conf $runPath/etc/freeswitch -log /data/t3-logs/freeswitch/ -db $runPath/var/lib/freeswitch/db -mod $runPath/lib/freeswitch/mod -recordings $runPath/recordings >/dev/null
