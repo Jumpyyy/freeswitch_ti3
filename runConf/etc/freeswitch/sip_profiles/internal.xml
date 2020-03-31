@@ -88,8 +88,8 @@
     <param name="rfc2833-pt" value="101"/>
     <!-- port to bind to for sip traffic -->
     <param name="sip-port" value="$${internal_sip_port}"/>
-    <param name="172.16.111.86_sip-port" value="9161"/>
-    <param name="172.16.111.85_sip-port" value="9162"/>
+    <param name="172.16.115.191_sip-port" value="9161"/>
+    <param name="172.16.115.192_sip-port" value="9162"/>
     <param name="dialplan" value="XML"/>
     <param name="dtmf-duration" value="2000"/>
     <param name="inbound-codec-prefs" value="$${global_codec_prefs}"/>
@@ -290,8 +290,8 @@
     <param name="ext-sip-ip" value="$${external_rtp_ip}"/-->
     <!--param name="ext-rtp-ip" value="172.16.31.194"/>
     <param name="ext-sip-ip" value="172.16.31.194"/-->
-    <param name="ext-rtp-ip" value="mediasip-dev.t3go.cn"/>
-    <param name="ext-sip-ip" value="mediasip-dev.t3go.cn"/>
+    <param name="ext-rtp-ip" value="mediasip-police.t3go.cn"/>
+    <param name="ext-sip-ip" value="mediasip-police.t3go.cn"/>
 
     <!-- rtp inactivity timeout -->
     <param name="rtp-timeout-sec" value="300"/>
@@ -314,10 +314,10 @@
     <param name="force-register-db-domain" value="$${domain}"/>
 
 
-    <param name="172.16.111.86_ws-binding"  value=":5061"/>
-    <param name="172.16.111.86_wss-binding" value=":7441"/>
-    <param name="172.16.111.85_ws-binding"  value=":5062"/>
-    <param name="172.16.111.85_wss-binding" value=":7442"/>
+    <param name="172.16.115.191_ws-binding"  value=":5061"/>
+    <param name="172.16.115.191_wss-binding" value=":7441"/>
+    <param name="172.16.115.192_ws-binding"  value=":5062"/>
+    <param name="172.16.115.192_wss-binding" value=":7442"/>
 
     <!-- for sip over websocket support -->
     <param name="ws-binding"  value=":5052"/>

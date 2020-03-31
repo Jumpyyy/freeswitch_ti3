@@ -147,12 +147,12 @@
     <!-- NEEDS DOCUMENTATION -->
 
     <!-- RTP port range -->
-    <param name="172.16.111.86_rtp-start-port" value="10001"/> 
-    <param name="172.16.111.86_rtp-end-port" value="10050"/> 
-    <param name="172.16.111.85_rtp-start-port" value="10201"/> 
-    <param name="172.16.111.85_rtp-end-port" value="10250"/> 
+    <param name="172.16.115.191_rtp-start-port" value="10001"/> 
+    <param name="172.16.115.191_rtp-end-port" value="10010"/> 
+    <param name="172.16.115.192_rtp-start-port" value="10201"/> 
+    <param name="172.16.115.192_rtp-end-port" value="10210"/> 
     <param name="rtp-start-port" value="10201"/> 
-    <param name="rtp-end-port" value="10250"/> 
+    <param name="rtp-end-port" value="10210"/> 
 
     <!-- Test each port to make sure it is not in use by some other process before allocating it to RTP -->
     <!-- <param name="rtp-port-usage-robustness" value="true"/> -->
