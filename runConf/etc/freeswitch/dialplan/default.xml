@@ -257,12 +257,12 @@
     -->
     <extension name="Local_Extension">
       <condition field="destination_number" expression="^(10[01][0-9])$">
-       <action application="set" data="RECORD_TITLE=Recording ${destination_number} ${caller_id_number} ${strftime(%Y-%m-%d %H:%M)}"/>  
-       <action application="set" data="RECORD_DATE=${strftime(%Y-%m-%d %H:%M)}"/> 
-      <action application="set" data="RECORD_STEREO=true"/>
+       <!-- <action application="set" data="RECORD_TITLE=Recording ${destination_number} ${caller_id_number} ${strftime(%Y-%m-%d %H:%M)}"/>   -->
+       <!-- <action application="set" data="RECORD_DATE=${strftime(%Y-%m-%d %H:%M)}"/>  -->
+      <!-- <action application="set" data="RECORD_STEREO=true"/> -->
       <action application="set" data="legacyDTLS=true"/>
-      <action application="set" data="media_bug_answer_req=true"/>
-      <action application="record_session" data="$${base_dir}/recordings/${caller_id_number}/${strftime(%Y-%m-%d-%H-%M-%S)}_${caller_id_number}_${destination_number}.mp3"/>
+      <!-- <action application="set" data="media_bug_answer_req=true"/> -->
+      <!-- <action application="record_session" data="$${base_dir}/recordings/${caller_id_number}/${strftime(%Y-%m-%d-%H-%M-%S)}_${caller_id_number}_${destination_number}.mp3"/> -->
 	<action application="export" data="dialed_extension=$1"/>
 	<!--action application="set" data="proxy_media=true"/-->
           <action application="set" data="ringback=${us-ring}"/>
@@ -279,14 +279,14 @@
 
     <extension name="t3_Local_Extension">
       <condition field="destination_number" expression="^([A-Za-z0-9]{17})$">
-       <action application="set" data="RECORD_TITLE=Recording ${destination_number} ${caller_id_number} ${strftime(%Y-%m-%d %H:%M)}"/>  
-       <action application="set" data="RECORD_DATE=${strftime(%Y-%m-%d %H:%M)}"/> 
-      <action application="set" data="RECORD_STEREO=true"/>
+       <!-- <action application="set" data="RECORD_TITLE=Recording ${destination_number} ${caller_id_number} ${strftime(%Y-%m-%d %H:%M)}"/>   -->
+       <!-- <action application="set" data="RECORD_DATE=${strftime(%Y-%m-%d %H:%M)}"/>  -->
+      <!-- <action application="set" data="RECORD_STEREO=true"/> -->
       <action application="set" data="legacyDTLS=true"/>
-      <action application="set" data="media_bug_answer_req=true"/>
+      <!-- <action application="set" data="media_bug_answer_req=true"/> -->
+      <!-- <action application="log" data="CRIT =================[A-Za-z0-9]{17} success."/> -->
       <action application="log" data="CRIT =================[A-Za-z0-9]{17} success."/>
-      <action application="log" data="CRIT =================[A-Za-z0-9]{17} success."/>
-      <action application="record_session" data="$${base_dir}/recordings/${caller_id_number}/${strftime(%Y-%m-%d-%H-%M-%S)}_${caller_id_number}_${destination_number}.mp3"/>
+      <!-- <action application="record_session" data="$${base_dir}/recordings/${caller_id_number}/${strftime(%Y-%m-%d-%H-%M-%S)}_${caller_id_number}_${destination_number}.mp3"/> -->
 	<action application="export" data="dialed_extension=$1"/>
 	<!--action application="set" data="proxy_media=true"/-->
           <action application="set" data="ringback=${us-ring}"/>
