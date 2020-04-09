@@ -132,7 +132,8 @@
         This defines your local network, by default we detect your local network
         and create this localnet.auto ACL for this.
     -->
-    <param name="local-network-acl" value="localnet.auto"/>
+    <!-- <param name="local-network-acl" value="localnet.auto"/> -->
+    <param name="local-network-acl" value="none"/>
     <param name="apply-candidate-acl" value="localnet.auto"/>
      <param name="apply-candidate-acl" value="rfc1918.auto"/>
 <!--<param name="apply-register-acl" value="domains"/>-->
