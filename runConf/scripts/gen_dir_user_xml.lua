@@ -18,6 +18,15 @@ local req_user   = params:getHeader("user")
 local req_password   = params:getHeader("pass")
 
  
+if req_user==nil  then
+  freeswitch.consoleLog("NOTICE","req_user is nil...\r\n");
+  XML_STRING =
+  [[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+  <document type="freeswitch/xml">
+    <section name="directory">
+    </section>
+  </document>]]
+else
 
 local dbh = freeswitch.Dbh("freeswitch","root","HF@t3123");
 freeswitch.consoleLog("NOTICE","start connect DB...\r\n");
@@ -70,6 +79,8 @@ else
       <section name="directory">
       </section>
     </document>]]
+end
+
 end
 -- comment the following line for production:
 
